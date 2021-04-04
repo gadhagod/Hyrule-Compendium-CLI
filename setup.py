@@ -16,9 +16,9 @@ setuptools.setup(
         'Operating System :: OS Independent',
     ],
     install_requires=[
-        'pyrule-compendium==2.2.1',
+        'pyrule-compendium==2.3.0',
         'click'
     ],
-    scripts=['./hyrule'],
+    scripts=['./compendium'],
     python_requires='>=3.6'
 )
