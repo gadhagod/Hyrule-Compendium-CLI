@@ -4,6 +4,7 @@ import click
 from pyrule_compendium import compendium as c
 import utils
 from json import dumps
+from handlers import handle
 
 comp = c(default_timeout=5)
 
@@ -15,6 +16,9 @@ def compendium():
 @click.argument("target_entry")
 def entry(target_entry):
     "Get data on an entry"
+    try:
+        target_entry = int(target_entry)
+    except ValueError: pass
     click.echo(utils.format_dict(comp.get_entry(target_entry)))
 
 
@@ -36,4 +40,4 @@ def image(entry, output):
     "Download the image of an entry"
     comp.download_entry_image(entry, output)
 
-compendium()
+handle(compendium)

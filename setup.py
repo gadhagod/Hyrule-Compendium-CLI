@@ -18,7 +18,8 @@ setuptools.setup(
     install_requires=[
         'pyrule-compendium==2.3.0',
         'click',
-        'Pygments'
+        'Pygments',
+        'termcolor'
     ],
     scripts=['./bin/compendium'],
     python_requires='>=3.6'
