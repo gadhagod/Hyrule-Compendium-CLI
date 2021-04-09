@@ -2,7 +2,7 @@
 
 import click
 from pyrule_compendium import compendium as c
-from typing import Union
+import utils
 from json import dumps
 
 comp = c(default_timeout=5)
@@ -15,24 +15,19 @@ def compendium():
 @click.argument("target_entry")
 def entry(target_entry):
     "Get data on an entry"
-    click.echo(
-        dumps(comp.get_entry(target_entry), indent=4)
-    )
+    click.echo(utils.format_dict(comp.get_entry(target_entry)))
+
 
 @compendium.command()
 @click.argument("target_category")
 def category(target_category):
     "Get items in a category"
-    click.echo(
-        dumps(comp.get_category(target_category), indent=4)
-    )
+    click.echo(utils.format_dict(comp.get_category(target_category)))
 
 @compendium.command()
 def all():
     "Get all items from the compendium"
-    click.echo(
-        dumps(comp.get_all(), indent=4)
-    )
+    click.echo(utils.format_dict(comp.get_all()))
     
 @compendium.command()
 @click.argument("entry")
