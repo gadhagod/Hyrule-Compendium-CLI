@@ -1,10 +1,23 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import click
 from pyrule_compendium import compendium as c
-import utils
 from json import dumps
-from handlers import handle
+from pygments import highlight, lexers, formatters
+from json import dumps
+from cli_helpers import tabular_output
+
+def format_dict(object: dict) -> str:
+    return(
+        highlight(
+            dumps(
+                object, 
+                indent=4
+            ), 
+            lexers.JsonLexer(), 
+            formatters.TerminalFormatter()
+        )
+    )
 
 comp = c(default_timeout=5)
 
@@ -19,25 +32,25 @@ def entry(target_entry):
     try:
         target_entry = int(target_entry)
     except ValueError: pass
-    click.echo(utils.format_dict(comp.get_entry(target_entry)))
+    click.echo(format_dict(comp.get_entry(target_entry)))
 
 
 @compendium.command()
 @click.argument("target_category")
 def category(target_category):
     "Get items in a category"
-    click.echo(utils.format_dict(comp.get_category(target_category)))
+    click.echo(format_dict(comp.get_category(target_category)))
 
 @compendium.command()
 def all():
     "Get all items from the compendium"
-    click.echo(utils.format_dict(comp.get_all()))
+    click.echo(format_dict(comp.get_all()))
     
 @compendium.command()
 @click.argument("entry")
 @click.option("--output", "-o", type=click.Path(), default=None, help="The output file of the image")
 def image(entry, output):
     "Download the image of an entry"
-    comp.download_entry_image(entry, output)
+    comp.get_image(entry).download(output_file=output)
 
-handle(compendium)
+compendium()
