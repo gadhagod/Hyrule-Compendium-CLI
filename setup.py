@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='hyrule-compendium-cli',
-    version='3.0.1',
+    version='3.0.2',
     author='Aarav Borthakur',
     author_email='gadhaguy13@gmail.com',
     description='The official CLI for the Hyrule Compendium API',
@@ -16,7 +16,7 @@ setuptools.setup(
         'Operating System :: OS Independent',
     ],
     install_requires=[
-        'pyrule-compendium==2.4.0',
+        'pyrule-compendium==2.4.1',
         'click',
         'Pygments',
         'termcolor'
